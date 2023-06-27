@@ -6,4 +6,6 @@
 # persona femenina aquella cuya ultima letra del primer nombre es una letra
 # “a”. El archivo generado debe poder accederse fuera del contenedor.
 
+# modificacion de prueba en rama comprimir
+
 exit 0
