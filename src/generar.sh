@@ -10,7 +10,7 @@
 
 # modificacion en rama generar
 
-SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"  # directorio del archivo actual
+SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"  # directorio del archivo actual, no entiendo del todo como funciona
 ASSETS_PATH="$SCRIPT_PATH/../assets"  # ruta de directorio de assets
 # echo $SCRIPT_PATH
 # echo $ASSETS_PATH
@@ -32,13 +32,31 @@ function descargar_nombres {
 }
 
 function leer_nombres {
-	# leer el archivo de nombres
+	#ESTE ENFOQUE TARDA MUCHISIMO, ¿CUAL SERIA LA FORMA MAS RAPIDA DE LEER LOS NOMBRES Y ELEGIR UNO RANDOM?
+	# la idea es leer el csv y guardar los nombres de la primera columna en un arreglo
+
+	NOMBRES=""
+	while IFS=, read -r col1 col2
+	do
+		clear
+		echo "Leyendo nombres: $col1"
+
+		if [[ $NOMBRES == "" ]]
+		then
+			NOMBRES=$col1
+		else
+			NOMBRES="$NOMBRES $col1"
+		fi
+		#echo "I got : $col1 | $col2"
+	done < "$ASSETS_PATH/nombres.csv"
+	echo $NOMBRES
 	sleep 1
 }
 
 function elegir_nombre {
 	# esta funcion deberia
 	## elegir un nombre al azar y devolverlo
+
 	echo marta
 }
 
@@ -66,6 +84,7 @@ function descargar_imagenes {
 }
 
 descargar_nombres
+# leer_nombres
 descargar_imagenes
 
 exit 0
