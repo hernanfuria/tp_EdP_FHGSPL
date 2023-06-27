@@ -8,4 +8,6 @@
 # se deben comprimir las imágenes, y generar un archivo con su suma de
 # verificación.
 
+# modificacion en rama generar
+
 exit 0
