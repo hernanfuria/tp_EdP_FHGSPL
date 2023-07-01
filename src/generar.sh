@@ -31,6 +31,11 @@ function descargar_nombres {
 	fi
 }
 
+function reset_dir_dataset {
+	[[ -d "$ASSETS_PATH/dataset" ]] && rm -r "$ASSETS_PATH/dataset"
+	mkdir "$ASSETS_PATH/dataset"
+}
+
 function limpiar_nombre {
         # esta funcion toma como argumento un string de la forma <nombre>,<numero> y retorna solo <nombre>
 
@@ -63,8 +68,9 @@ function descargar_imagenes {
 			echo "Descargando imagen $I de $CANT" && I=$(( $I+1 )) && echo " " && echo " "
 			
 			NOMBRE_LIMPIO=$(limpiar_nombre "$LINE")
-			echo "decargando $ASSETS_PATH/$NOMBRE_LIMPIO.jpeg beep boop"
-			# curl -L 'https://source.unsplash.com/random/900%C3%97700/?person' -o "$ASSETS_PATH/$NOMBRE_LIMPIO.jpeg"
+			echo "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.jpeg"
+			echo $NOMBRE_LIMPIO > "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.txt"
+			# curl -L 'https://source.unsplash.com/random/900%C3%97700/?person' -o "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.jpeg"
 			
 			echo " " && echo " " &&  echo "Descargada"
 			sleep 1
@@ -75,7 +81,7 @@ function descargar_imagenes {
 }
 
 descargar_nombres
-# leer_nombres
+reset_dir_dataset
 descargar_imagenes
 
 exit 0
