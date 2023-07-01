@@ -1,12 +1,15 @@
 #!/bin/bash -e
 
-# Una vez procesadas las imágenes se debe generar un
-# archivo con la lista de todas las personas, un total de personas femeninas
-# y masculinas; y luego comprimir todo en un solo archivo. Entiéndase por
-# persona femenina aquella cuya ultima letra del primer nombre es una letra
-# “a”. El archivo generado debe poder accederse fuera del contenedor.
+SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"  # directorio del archivo actual, no entiendo del todo como funciona
+ASSETS_PATH="$SCRIPT_PATH/../assets"  # ruta de directorio de assets
 
-# modificacion de prueba en rama comprimir
+
+function reset_dir_comp {
+	# Esta funcion elimina la carpeta assets/comp si esta existe y luego la crea vacia
+
+	[[ -d "$ASSETS_PATH/comp" ]] && rm -r "$ASSETS_PATH/comp"
+	mkdir "$ASSETS_PATH/comp"
+}
 
 function nombres_todas_img {
 	# Esta funcion crea un archivo assets/comp/nombres_todos con los nombres de todas las imagenes del dataset
@@ -43,6 +46,7 @@ function comprimir_todo {
 function run {
 	# Esta funcion ejecuta el proceso en orden
 	
+	reset_dir_comp
 	nombres_todas_img
 	nombres_validos_img
 	nombres_finalizados_a
