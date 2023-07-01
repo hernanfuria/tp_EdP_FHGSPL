@@ -81,7 +81,15 @@ function comprimir_todo {
 	# - assets/proc/*.jpeg
 	# en assets/comp/results.tar.gz y elimina el resto del contenido de assets/comp
 
-	echo comprimir_todo
+	cd "$ASSETS_PATH/proc/"
+	cp * "$ASSETS_PATH/comp/"
+	cd "$ASSETS_PATH/comp/"
+	tar cvzf results.tar.gz *
+	rm nombres_todos
+	rm nombres_validos
+	rm nombres_a
+	rm *.jpeg
+	clear
 }
 
 function run {
