@@ -46,7 +46,15 @@ function nombres_todas_img {
 function nombres_validos_img {
 	# Esta funcion crea un archivo assets/comp/nombres_validos con los nombres de las imagenes procesadas
 	
-	echo nombres_todas_img
+	touch "$ASSETS_PATH/comp/nombres_validos"
+        ls "$ASSETS_PATH/proc" | while read LINE
+        do
+		NOMBRE="$(quitar_ext "$LINE")"
+		if [[ $NOMBRE =~ ^[A-Z]{1}[a-z]+.*$ ]]
+		then
+                	echo $NOMBRE >> "$ASSETS_PATH/comp/nombres_validos"
+        	fi
+	done
 }
 
 
