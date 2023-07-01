@@ -15,7 +15,7 @@ function descargar_nombres {
 		echo " "
 		echo " "
 		sleep 2
-		wget "https://raw.githubusercontent.com/fernandezpablo85/name_suggestions/master/assets/dict.csv" -O "$ASSETS_PATH/nombres.csv"
+		wget "https://raw.githubusercontent.com/adalessandro/EdP-2023-TP-Final/main/dict.csv" -O "$ASSETS_PATH/nombres.csv"
 		echo nombres descargados!
 		sleep 3
 	fi
@@ -107,10 +107,17 @@ function generar_arch_suma {
 }
 
 
-descargar_nombres
-reset_dir_dataset
-descargar_imagenes
-comprimir_imagenes_descargadas
-generar_arch_suma
+function run {
+	# Esta funcion ejecuta el proceso en orden
+
+	descargar_nombres
+	reset_dir_dataset
+	descargar_imagenes
+	comprimir_imagenes_descargadas
+	generar_arch_suma
+}
+
+
+run
 
 exit 0
