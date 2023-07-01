@@ -91,9 +91,16 @@ function comprimir_imagenes_descargadas {
 	clear
 }
 
+function generar_arch_suma {
+	cd "$ASSETS_PATH/dataset/"
+	SUM=($(md5sum dataset.tar.gz))
+	echo ${SUM[0]} > dataset_sum
+}
+
 descargar_nombres
 reset_dir_dataset
 descargar_imagenes
 comprimir_imagenes_descargadas
+generar_arch_suma
 
 exit 0
