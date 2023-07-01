@@ -61,7 +61,15 @@ function nombres_validos_img {
 function nombres_finalizados_a {
 	# Esta funcion crea un archivo assets/comp/nombres_a con los nombres validos terminados en "a"
 
-	echo nombres_finalizados_a
+	touch "$ASSETS_PATH/comp/nombres_a"
+        ls "$ASSETS_PATH/proc" | while read LINE
+        do
+                NOMBRE="$(quitar_ext "$LINE")"
+		if [[ $NOMBRE =~ ^[A-Z]{1}[a-z]+.*(a){1}$ ]]
+                then
+                        echo $NOMBRE >> "$ASSETS_PATH/comp/nombres_a"
+                fi
+        done
 }
 
 
