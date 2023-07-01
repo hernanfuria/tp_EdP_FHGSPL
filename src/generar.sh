@@ -68,8 +68,11 @@ function descargar_imagenes {
 			echo "Descargando imagen $I de $CANT" && I=$(( $I+1 )) && echo " " && echo " "
 			
 			NOMBRE_LIMPIO=$(limpiar_nombre "$LINE")
+			
+			# data de prueba para no descargar imagenes (no tengo internet)
 			echo "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.jpeg"
 			echo $NOMBRE_LIMPIO > "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.txt"
+
 			# curl -L 'https://source.unsplash.com/random/900%C3%97700/?person' -o "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.jpeg"
 			
 			echo " " && echo " " &&  echo "Descargada"
@@ -80,8 +83,17 @@ function descargar_imagenes {
 	done
 }
 
+function comprimir_imagenes_descargadas {
+	# por el momento comprime .txt, modificar luego para .jpeg
+	cd "$ASSETS_PATH/dataset/"
+	tar cvzf dataset.tar.gz *.txt
+	rm *.txt
+	clear
+}
+
 descargar_nombres
 reset_dir_dataset
 descargar_imagenes
+comprimir_imagenes_descargadas
 
 exit 0
