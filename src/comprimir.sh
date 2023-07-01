@@ -4,6 +4,26 @@ SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"  # directori
 ASSETS_PATH="$SCRIPT_PATH/../assets"  # ruta de directorio de assets
 
 
+function quitar_ext {
+        # Esta funcion toma como argumento un string de la forma <filename>.<ext> y retorna solo <filename>
+	# Conserva nombre solo hasta primer "." encontrado.
+
+	local LINE
+	local NOMBRE
+
+        LINE="$1"
+        NOMBRE=""
+        for (( I=0; I<${#LINE}; I++ ))
+        do
+                C=${LINE:$I:1}
+                [[ $C == "." ]] && break
+                NOMBRE="$NOMBRE$C"
+        done
+
+        echo $NOMBRE
+}
+
+
 function reset_dir_comp {
 	# Esta funcion elimina la carpeta assets/comp si esta existe y luego la crea vacia
 
@@ -11,10 +31,15 @@ function reset_dir_comp {
 	mkdir "$ASSETS_PATH/comp"
 }
 
+
 function nombres_todas_img {
 	# Esta funcion crea un archivo assets/comp/nombres_todos con los nombres de todas las imagenes del dataset
 	
-	echo nombres_todas_img
+	touch "$ASSETS_PATH/comp/nombres_todos"
+	ls "$ASSETS_PATH/proc" | while read LINE
+	do
+		echo "$(quitar_ext "$LINE")" >> "$ASSETS_PATH/comp/nombres_todos"
+	done
 }
 
 
