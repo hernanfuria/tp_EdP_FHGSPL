@@ -31,33 +31,22 @@ function descargar_nombres {
 	fi
 }
 
-function leer_nombres {
-	#ESTE ENFOQUE TARDA MUCHISIMO, ¿CUAL SERIA LA FORMA MAS RAPIDA DE LEER LOS NOMBRES Y ELEGIR UNO RANDOM?
-	# la idea es leer el csv y guardar los nombres de la primera columna en un arreglo
+function limpiar_nombre {
+        # esta funcion toma como argumento un string de la forma <nombre>,<numero> y retorna solo <nombre>
 
-	NOMBRES=""
-	while IFS=, read -r col1 col2
-	do
-		clear
-		echo "Leyendo nombres: $col1"
+	local LINE
+	local NOMBRE
 
-		if [[ $NOMBRES == "" ]]
-		then
-			NOMBRES=$col1
-		else
-			NOMBRES="$NOMBRES $col1"
-		fi
-		#echo "I got : $col1 | $col2"
-	done < "$ASSETS_PATH/nombres.csv"
-	echo $NOMBRES
-	sleep 1
-}
+        LINE="$1"
+        NOMBRE=""
+        for (( I=0; I<${#LINE}; I++ ))
+        do
+                C=${LINE:$I:1}
+                [[ $C == "," ]] && break
+                NOMBRE="$NOMBRE$C"
+        done
 
-function elegir_nombre {
-	# esta funcion deberia
-	## elegir un nombre al azar y devolverlo
-
-	echo marta
+        echo $NOMBRE
 }
 
 function descargar_imagenes {
@@ -76,7 +65,7 @@ function descargar_imagenes {
 			echo " "
 
 			# curl -L 'https://source.unsplash.com/random/900%C3%97700/?person' -o "$ASSETS_PATH/$I.jpeg"
-			echo $LINE
+			limpiar_nombre "$LINE"
 			
 			echo " "
 			echo " "
