@@ -55,21 +55,18 @@ function descargar_imagenes {
 	do
 		read -p "Ingrese la cantidad de imagenes a decargar (numero entero positivo): " CANT
 		[[ $CANT =~ ^[1-9]{1}[0-9]*$ ]] || (echo "$CANT no es un numero valido" && continue)
-		# for I in $(seq 1 $CANT)
-		# for NOMBRE in $(shuf --head-count=$CANT $ASSETS_PATH/nombres.csv)
+		
+		I=1
 		shuf --head-count=$CANT $ASSETS_PATH/nombres.csv | while read LINE	
 		do
 			clear
-			echo "Descargando imagen $I de $CANT"
-			echo " "
-			echo " "
-
-			# curl -L 'https://source.unsplash.com/random/900%C3%97700/?person' -o "$ASSETS_PATH/$I.jpeg"
-			limpiar_nombre "$LINE"
+			echo "Descargando imagen $I de $CANT" && I=$(( $I+1 )) && echo " " && echo " "
 			
-			echo " "
-			echo " "
-			echo "Descargada"
+			NOMBRE_LIMPIO=$(limpiar_nombre "$LINE")
+			echo "decargando $ASSETS_PATH/$NOMBRE_LIMPIO.jpeg beep boop"
+			# curl -L 'https://source.unsplash.com/random/900%C3%97700/?person' -o "$ASSETS_PATH/$NOMBRE_LIMPIO.jpeg"
+			
+			echo " " && echo " " &&  echo "Descargada"
 			sleep 1
 		done
 		clear
