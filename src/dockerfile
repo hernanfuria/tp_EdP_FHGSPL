@@ -1,1 +1,10 @@
-# modificacion de prueba en rama dockerfile
+FROM alpine
+
+RUN apk update && apk add bash imagemagick
+
+WORKDIR /app
+
+ADD src src
+ADD assets assets
+
+ENTRYPOINT ["bash", "/app/src/menu.sh"]
