@@ -28,7 +28,7 @@ function verificar_arch {
 function desc_arch {
 	#funcion para descomprimir archivos de imagen que esten en el directorio assets/dataset/.
 	#los archivos descomprimidos seran guardados en el directorio assets/dataset/raw
-	cd "ASSETS_PATH/dataset/raw"
+	cd "$ASSETS_PATH/dataset/raw"
 	local ARCHCOMP=$1
 	tar -xzvf "$ARCHCOMP"
 }
@@ -52,7 +52,10 @@ function descomprimir {
 	verificar_arch "$ARCHSUM"
 
 	#verificar que coincidan la suma de los archivos comprimidos con la de los descomprimidos.
-	#VER
+	if ! md5sum --check "$ARCHSUM"; then
+		echo "La suma de verificacion de los archivos no cioncide"
+		exit 1
+	fi
 
 	#mostrar informacion
 
