@@ -28,7 +28,7 @@ function verificar_arch {
 function desc_arch {
 	#funcion para descomprimir archivos de imagen que esten en el directorio assets/dataset/.
 	#los archivos descomprimidos seran guardados en el directorio assets/dataset/raw
-	cd "$ASSETS_PATH/dataset/raw"
+	cd "$ASSETS_PATH/raw"
 	local ARCHCOMP=$1
 	tar -xzvf "$ARCHCOMP"
 }
@@ -61,5 +61,5 @@ function descomprimir {
 
 	echo "Archivos descomprimidos: "
 	echo " "
-	ls -la "$ASSETS_PATH/dataset/raw"
+	ls -la "$ASSETS_PATH/raw"
 }	
