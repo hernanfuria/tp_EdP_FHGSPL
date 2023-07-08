@@ -91,7 +91,7 @@ function comprimir_imagenes_descargadas {
 	# y elimina las imagenes para dejar solo el archivo comprimido
 
 	cd "$ASSETS_PATH/dataset/"
-	tar cvzf dataset.tar.gz *.jpeg
+	tar cvzf "$1" *.jpeg
 	rm *.jpeg
 	clear
 }
@@ -102,8 +102,8 @@ function generar_arch_suma {
 	# y la guarda en assets/dataset/dataset_sum
 
 	cd "$ASSETS_PATH/dataset/"
-	SUM=($(md5sum dataset.tar.gz))
-	echo ${SUM[0]} > dataset_sum
+	SUM=($(md5sum "$1"))
+	echo ${SUM[0]} > "$2"
 }
 
 
@@ -113,11 +113,11 @@ function run {
 	descargar_nombres
 	reset_dir_dataset
 	descargar_imagenes
-	comprimir_imagenes_descargadas
-	generar_arch_suma
+	comprimir_imagenes_descargadas "$1"
+	generar_arch_suma "$1" "$2"
 }
 
 
-run
+run "$1" "$2"
 
 exit 0
