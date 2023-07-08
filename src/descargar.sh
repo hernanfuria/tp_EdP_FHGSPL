@@ -1,18 +1,13 @@
 #!/bin/bash -e
 
-# escarga un archivo comprimido de imágenes. De debe
-# poder indicar por argumento dos archivos (uno con las imágenes y otro
-# con una suma de verificación). Si ocurrió algún error se debe informar al
-# usuario de lo contrario se procede a descomprimir
-
-# cambio en rama descargar
-
 SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"  # directorio del archivo actual, no entiendo del todo como funciona
 ASSETS_PATH="$SCRIPT_PATH/../assets"  # ruta de directorio de assets
+
 
 function verificar_arch {
 	#esta funcion verifica si existen el archivo.
 	#caso contrario se notifica al usuario.
+	
 	cd "$SCRIPT_PATH"
 	local ARCH=$1
 	if [ ! -f "$ARCH" ]; then
@@ -25,12 +20,16 @@ function verificar_arch {
 	fi
 }
 
+
 function desc_arch {
 	#funcion para descomprimir archivos de imagen que esten en el directorio assets/dataset/.
 	#los archivos descomprimidos seran guardados en el directorio assets/dataset/raw
+	
+	cd "$ASSETS_PATH/dataset"
+	cp "$1" "$ASSETS_PATH/raw/"
 	cd "$ASSETS_PATH/raw"
-	local ARCHCOMP=$1
-	tar -xzvf "$ARCHCOMP"
+	tar xzvf "$1"
+	rm "$1"
 }
 
 function descomprimir {
@@ -52,9 +51,14 @@ function descomprimir {
 	verificar_arch "$ARCHSUM"
 
 	#verificar que coincidan la suma de los archivos comprimidos con la de los descomprimidos.
-	if ! md5sum --check "$ARCHSUM"; then
-		echo "La suma de verificacion de los archivos no cioncide"
-		exit 1
+	SUM=($(md5sum $ARCHCOMP))
+	REALSUM=${SUM[0]}
+
+	SAVEDSUM=$(cat $ARCHSUM)
+
+	if [[ "$REALSUM" == "$SAVEDSUM" ]]
+	then
+		desc_arch "$1"
 	fi
 
 	#mostrar informacion
@@ -63,3 +67,7 @@ function descomprimir {
 	echo " "
 	ls -la "$ASSETS_PATH/raw"
 }	
+
+descomprimir "$1" "$2"
+
+exit 0
