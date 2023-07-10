@@ -51,4 +51,3 @@ function run {
 
 run
 
-exit 0
