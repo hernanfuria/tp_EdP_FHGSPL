@@ -81,6 +81,6 @@ function run {
 	descomprimir "$1" "$2"
 }
 
-run
+run "$1" "$2"
 
 exit 0
