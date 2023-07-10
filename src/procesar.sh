@@ -16,7 +16,7 @@ ASSETS_PATH="$SCRIPT_PATH/../assets"
 function check_raw {
 	#Esta funcion checkea que exista de la carpeta raw
 
-	[[! -d "$ASSETS_PATH/raw" ]] && echo "Ejecute antes descomprimir" && exit 1
+	[[ ! -d "$ASSETS_PATH/raw" ]] && echo "Ejecute antes descomprimir" && exit 1
 }
 
 function reset_dir_proc {
@@ -30,9 +30,13 @@ function procesar_ima {
 	
 	ls "$ASSETS_PATH/raw" | while read Archs
         do
-		if [[ $Archs =~ ^[A-Z]{1}[a-z]*$ ]]
+		echo $Archs
+		if [[ "$Archs" =~ ^[A-Z]{1}[a-z]*.*$ ]]
 		then
-			convert $Archs -gravity center -resize 512x512+0+0 -extent 512x512 $ASSETS_PATH/proc/$Archs
+			echo "se esta convirtiendo $Archs"
+			convert "$ASSETS_PATH/raw/$Archs" -gravity center -resize 512x512+0+0 -extent 512x512 "$ASSETS_PATH/proc/$Archs"
+		else
+			cp "$ASSETS_PATH/raw/$Archs" "$ASSETS_PATH/proc/$Archs"
 		fi
 	done
 		}
