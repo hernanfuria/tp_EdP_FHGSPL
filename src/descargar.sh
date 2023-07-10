@@ -21,6 +21,14 @@ function verificar_arch {
 }
 
 
+function reset_dir_raw {
+	# Esta funcion elimina la carpeta assets/raw si esta existe y luego la crea vacia
+
+	[[ -d "$ASSETS_PATH/raw" ]] && rm -r "$ASSETS_PATH/raw"
+	mkdir "$ASSETS_PATH/raw"
+}
+
+
 function desc_arch {
 	#funcion para descomprimir archivos de imagen que esten en el directorio assets/dataset/.
 	#los archivos descomprimidos seran guardados en el directorio assets/dataset/raw
@@ -68,6 +76,11 @@ function descomprimir {
 	ls -la "$ASSETS_PATH/raw"
 }	
 
-descomprimir "$1" "$2"
+function run {
+	reset_dir_raw
+	descomprimir "$1" "$2"
+}
+
+run
 
 exit 0
