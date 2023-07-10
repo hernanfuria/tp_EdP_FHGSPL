@@ -1,6 +1,10 @@
 #!/bin/bash -e
 
 
+SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"  # directorio del archivo actual, no entiendo del todo como funciona
+SOURCE_PATH="$SCRIPT_PATH/../src"  # ruta de directorio src
+
+
 PS3="Opcion > "
 echo "Elija accion:"
 select ACTION in "Generar" "Descomprimir" "Procesar" "Comprimir" "Salir"
@@ -11,15 +15,16 @@ do
         case $REPLY in
 		1) 	read -p "Ingrese nombre del archivo comprimido a generar: " ARCHCOMP
 			read -p "Ingrese nombre del archivo suma a generar: " ARCHSUMA
-			bash generar.sh "$ARCHCOMP" "$ARCHSUMA"
+			/bin/bash "$SOURCE_PATH/generar.sh" "$ARCHCOMP" "$ARCHSUMA"
 			;;
                 2) 	read -p "Ingrese nombre del archivo comprimido a descomprimir: " ARCHCOMP
                         read -p "Ingrese nombre del archivo suma guardado: " ARCHSUMA
-                        bash descargar.sh "$ARCHCOMP" "$ARCHSUMA"
+                        /bin/bash "$SOURCE_PATH/descargar.sh" "$ARCHCOMP" "$ARCHSUMA"
                         ;;
 
-                3) bash procesar.sh;;
-		4) bash comprimir.sh;;
+                3) /bin/bash "$SOURCE_PATH/procesar.sh";;
+		4) /bin/bash "$SOURCE_PATH/comprimir.sh";;
         esac
+done
 
 exit 0
