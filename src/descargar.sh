@@ -19,6 +19,13 @@ function verificar_arch {
 }
 
 
+function check_dataset {
+	#Esta funcion checkea que exista de la carpeta dataset
+
+	[[ ! -d "$ASSETS_PATH/dataset" ]] && echo "Ejecute antes (1) generar!" && sleep 3 && exit 1
+}
+
+
 function reset_dir_raw {
 	# Esta funcion elimina la carpeta assets/raw si esta existe y luego la crea vacia
 
@@ -82,6 +89,7 @@ function descomprimir {
 
 function run {
 	reset_dir_raw
+	check_dataset
 	descomprimir "$1" "$2"
 }
 
