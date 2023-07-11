@@ -1,12 +1,12 @@
 FROM alpine
 
-RUN apk update && apk add bash imagemagick
+RUN apk update && apk add bash imagemagick curl
+
 
 WORKDIR /app
 
 ADD src src
 ADD assets assets
 
-#COPY . .
 
-ENTRYPOINT ["bash", "/app/src/menu.sh"]
+ENTRYPOINT ["bash", "f", "/app/src/menu.sh"]
