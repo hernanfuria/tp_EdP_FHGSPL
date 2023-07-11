@@ -24,6 +24,13 @@ function quitar_ext {
 }
 
 
+function check_proc {
+	#Esta funcion checkea que exista la carpeta proc
+
+	[[ ! -d "$ASSETS_PATH/proc" ]] && echo "Ejecute antes (3) procesar!" && sleep 3 && exit 1
+}
+
+
 function reset_dir_comp {
 	# Esta funcion elimina la carpeta assets/comp si esta existe y luego la crea vacia
 
@@ -104,6 +111,7 @@ function comprimir_todo {
 function run {
 	# Esta funcion ejecuta el proceso en orden
 	
+	check_proc
 	reset_dir_comp
 	nombres_todas_img
 	nombres_validos_img
