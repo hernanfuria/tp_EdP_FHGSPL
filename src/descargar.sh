@@ -59,6 +59,9 @@ function descomprimir {
 	verificar_arch "$ARCHSUM"
 
 	#verificar que coincidan la suma de los archivos comprimidos con la de los descomprimidos.
+	clear
+	echo Verificando suma
+	sleep 2
 	SUM=($(md5sum $ARCHCOMP))
 	REALSUM=${SUM[0]}
 
@@ -66,14 +69,12 @@ function descomprimir {
 
 	if [[ "$REALSUM" == "$SAVEDSUM" ]]
 	then
+		echo "Descomprimiendo archivo $1" && echo " "
 		desc_arch "$1"
+		echo " " && echo "Archivo descomprimido!"
+		sleep 2
+		clear
 	fi
-
-	#mostrar informacion
-
-	echo "Archivos descomprimidos: "
-	echo " "
-	ls -la "$ASSETS_PATH/raw"
 }	
 
 function run {

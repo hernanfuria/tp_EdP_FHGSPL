@@ -34,7 +34,9 @@ function reset_dir_comp {
 
 function nombres_todas_img {
 	# Esta funcion crea un archivo assets/comp/nombres_todos con los nombres de todas las imagenes del dataset
-	
+
+	clear
+	echo Creando nombres_todos	
 	touch "$ASSETS_PATH/comp/nombres_todos"
 	ls "$ASSETS_PATH/proc" | while read LINE
 	do
@@ -46,6 +48,7 @@ function nombres_todas_img {
 function nombres_validos_img {
 	# Esta funcion crea un archivo assets/comp/nombres_validos con los nombres de las imagenes procesadas
 	
+	echo Creando nombres_validos
 	touch "$ASSETS_PATH/comp/nombres_validos"
         ls "$ASSETS_PATH/proc" | while read LINE
         do
@@ -60,7 +63,8 @@ function nombres_validos_img {
 
 function nombres_finalizados_a {
 	# Esta funcion crea un archivo assets/comp/nombres_a con los nombres validos terminados en "a"
-
+	
+	echo Creando nombres_a
 	touch "$ASSETS_PATH/comp/nombres_a"
         ls "$ASSETS_PATH/proc" | while read LINE
         do
@@ -81,6 +85,8 @@ function comprimir_todo {
 	# - assets/proc/*.jpeg
 	# en assets/comp/results.tar.gz y elimina el resto del contenido de assets/comp
 
+	echo Comprimiendo resultados... && echo " "
+
 	cd "$ASSETS_PATH/proc/"
 	cp * "$ASSETS_PATH/comp/"
 	cd "$ASSETS_PATH/comp/"
@@ -89,6 +95,9 @@ function comprimir_todo {
 	rm nombres_validos
 	rm nombres_a
 	rm *.jpeg
+	
+	echo " " && echo results.tar.gz creado!
+	sleep 2
 	clear
 }
 

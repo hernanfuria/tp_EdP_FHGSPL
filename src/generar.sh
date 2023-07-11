@@ -66,11 +66,11 @@ function descargar_imagenes {
 		I=1
 		shuf --head-count=$CANT $ASSETS_PATH/nombres.csv | while read LINE	
 		do
-			clear
-			echo "Descargando imagen $I de $CANT" && I=$(( $I+1 )) && echo " " && echo " "
-			
 			NOMBRE_LIMPIO=$(limpiar_nombre "$LINE")
-			
+
+			clear
+			echo "Descargando imagen $I de $CANT ---> $NOMBRE_LIMPIO.jpeg" && I=$(( $I+1 )) && echo " " && echo " "
+						
 			# data de prueba para no descargar imagenes (no tengo internet)
 			# echo "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.jpeg"
 			# echo $NOMBRE_LIMPIO > "$ASSETS_PATH/dataset/$NOMBRE_LIMPIO.txt"
@@ -90,20 +90,37 @@ function comprimir_imagenes_descargadas {
 	# Esta funcion comprime las imagenes descargadas en un archivo assets/dataset/dataset.tar.gz
 	# y elimina las imagenes para dejar solo el archivo comprimido
 
+	echo Comprimiendo imagenes descargadas...
+	sleep 1
+
 	cd "$ASSETS_PATH/dataset/"
 	tar cvzf "$1" *.jpeg
 	rm *.jpeg
+
 	clear
+	echo "Imagenes comprimidas! ---> $1"
+	sleep 2
 }
 
 
 function generar_arch_suma {
 	# Esta funcion genera la suma del archivo assets/dataset/dataset.tar.gz 
 	# y la guarda en assets/dataset/dataset_sum
+	
+	clear
+	echo "Imagenes comprimidas! ---> $1"
+	echo Generando archivo suma...
+	sleep 1
 
 	cd "$ASSETS_PATH/dataset/"
 	SUM=($(md5sum "$1"))
 	echo ${SUM[0]} > "$2"
+
+	clear
+	echo "Imagenes comprimidas! ---> $1"
+	echo "Archivo suma generado! ---> $2"
+	sleep 2
+	clear
 }
 
 
