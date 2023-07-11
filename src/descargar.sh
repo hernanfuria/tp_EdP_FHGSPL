@@ -11,11 +11,9 @@ function verificar_arch {
 	cd "$SCRIPT_PATH"
 	local ARCH=$1
 	if [ ! -f "$ARCH" ]; then
-		echo "el archivo"
-		echo " "
-		echo "$ARCH"
-		echo " "
-		echo "no existe"
+		clear
+		echo "El archivo $ARCH no existe!"
+		sleep 3
 		exit 1
 	fi
 }
@@ -44,7 +42,8 @@ function descomprimir {
 	#funcion principal.
 	#Primero verifica que se hallan pasado 2 argumentos.
 	if [ $# -ne 2 ]; then
-		echo "Se deben pasar 2 argumentos"
+		echo "Se deben pasar 2 argumentos!"
+		sleep 3
 		exit 1
 	fi
 
@@ -72,6 +71,10 @@ function descomprimir {
 		echo "Descomprimiendo archivo $1" && echo " "
 		desc_arch "$1"
 		echo " " && echo "Archivo descomprimido!"
+		sleep 2
+		clear
+	else
+		echo "La suma guardada en $2 no coincide con la suma de $1"
 		sleep 2
 		clear
 	fi

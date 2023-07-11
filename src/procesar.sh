@@ -7,7 +7,7 @@ ASSETS_PATH="$SCRIPT_PATH/../assets"
 function check_raw {
 	#Esta funcion checkea que exista de la carpeta raw
 
-	[[ ! -d "$ASSETS_PATH/raw" ]] && echo "Ejecute antes descomprimir" && exit 1
+	[[ ! -d "$ASSETS_PATH/raw" ]] && echo "Ejecute antes (2) descomprimir!" && sleep 3 && exit 1
 }
 
 function reset_dir_proc {
