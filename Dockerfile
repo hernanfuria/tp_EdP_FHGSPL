@@ -4,6 +4,9 @@ RUN apk update && apk add bash imagemagick
 
 WORKDIR /app
 
-COPY . .
+ADD src src
+ADD assets assets
+
+#COPY . .
 
 ENTRYPOINT ["bash", "/app/src/menu.sh"]
