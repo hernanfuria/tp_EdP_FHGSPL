@@ -9,4 +9,4 @@ ADD src src
 ADD assets assets
 
 
-ENTRYPOINT ["bash", "f", "/app/src/menu.sh"]
+ENTRYPOINT ["bash", "-f", "/app/src/menu.sh"]
