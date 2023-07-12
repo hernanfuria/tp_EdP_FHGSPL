@@ -64,7 +64,7 @@ function descargar_imagenes {
 		[[ $CANT =~ ^[1-9]{1}[0-9]*$ ]] || (echo "$CANT no es un numero valido" && continue)
 		
 		I=1
-		shuf --head-count=$CANT $ASSETS_PATH/nombres.csv | while read LINE	
+		shuf -n $CANT $ASSETS_PATH/nombres.csv | while read LINE
 		do
 			NOMBRE_LIMPIO=$(limpiar_nombre "$LINE")
 
